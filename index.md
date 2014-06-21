@@ -49,11 +49,16 @@ On the right side there is the barchart that shows the monthly performance. Each
 
 DCA : Debt Collection Agency
 
+
+
      
 PAY_RATIO : The percentage of assigned client payments to the assigned debt monthly
 
+
+
  
 Unassigned : The unassigned segment of the bank porfolio. Cases that are not assigned to a DCA for debt collection  
+
 
 --- .class #id
 
@@ -82,16 +87,8 @@ library(zoo)
 
 ## Assigned debt pie chart for May 2014
 
+As for today, only a small segment of the portfolio has been assigned:
 
-
-```
-## 
-## Attaching package: 'zoo'
-## 
-## The following objects are masked from 'package:base':
-## 
-##     as.Date, as.Date.numeric
-```
-
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+**Thank you!**
 
