@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credit Portfolio Performance Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Credit Portfolio Performance Analysis">
+  <meta name="author" content="N. Tzortzis">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Credit Portfolio Performance Analysis</h1>
+    <h2></h2>
+    <p>N. Tzortzis<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This Shiny app is based on real data and shows:</p>
+
+<ul>
+<li><p>The performance of the assigned credit portfolio of a &quot;bad&quot; bank to debt collection agencies</p></li>
+<li><p>The performance of the unassigned portfolio</p></li>
+</ul>
+
+<p>and remarks the differnce in performance.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Shiny app</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>On the left side you can find a date field that takes date in a format &quot;yyyy-mm&quot;&quot; because the performance gets reported monthly</p>
+
+<p>Underneath the date field you can find detailed description of the fields used.</p>
+
+<p>On the right side there is the barchart that shows the monthly performance. Each column represents the monthly payment ratio for each debt collection agency and the last column represents the peroformance of the unassigned portfolio, i.e. the part of the portfolio that clients pay without any notification.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Field specs</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>DCA : Debt Collection Agency</p>
+
+<p>PAY_RATIO : The percentage of assigned client payments to the assigned debt monthly</p>
+
+<p>Unassigned : The unassigned segment of the bank porfolio. Cases that are not assigned to a DCA for debt collection  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Technical details</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The data are loaded from a csv file uploaded on the server each time the app starts</p>
+
+<pre><code>    payments &lt;- read.csv(&quot;payments1.csv&quot;, header=T)
+</code></pre>
+
+<p>The date field is reactive</p>
+
+<pre><code>    x &lt;- reactive({as.yearmon(input$yearmonth)})
+</code></pre>
+
+<p>The plot is based on the lattice package</p>
+
+<pre><code>    output$newHist &lt;- renderPlot({barchart(PAY_RATIO ~ EXTC_NAME,
+    subset(payments,as.yearmon(REF_DATE)&gt;=x() &amp; as.yearmon(REF_DATE)&lt;=x()),col=&#39;forestgreen&#39;)`
+</code></pre>
+
+<p>There was a difficulty in using the date in yearmonth format, so the zoo package is loaded every time the app starts, in order to handle dates.</p>
+
+<p>library(zoo)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Assigned debt pie chart for May 2014</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## 
+## Attaching package: &#39;zoo&#39;
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Overview'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Shiny app'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Field specs'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Technical details'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Assigned debt pie chart for May 2014'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
